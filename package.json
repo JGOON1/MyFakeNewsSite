@@ -1,0 +1,20 @@
+{
+  "name": "MyFakeNewsSite",
+  "version": "1.0.0",
+  "description": "scrapping a real news site and displaying it to my fake new's site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahan1986/MyFakeNewsSite.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahan1986/MyFakeNewsSite/issues"
+  },
+  "homepage": "https://github.com/ahan1986/MyFakeNewsSite#readme"
+}
