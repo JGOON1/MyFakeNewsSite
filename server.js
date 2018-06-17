@@ -48,23 +48,19 @@ app.get('/', (req, res) => {
 app.get("/scrape", (req, res) => {
     axios.get("https://weather.com/weather/tenday/l/19006:4:US").then((response) => {
         const $ = cheerio.load(response.data);
-    console.log("====================== 1 ======================");
         $("tr.clickable").each((i, element) => {
             let result = {};
-            console.log("====================== 2 ======================");
-            result.title = $(element).find("span.day-detail").text();
             
+            result.title = $(element).find("span.day-detail").text();
             result.body = $(element).find("td.description").attr("title");
 
             console.log(result);
 
             db.article.create(result)
                 .then((Article) => {
-                    console.log("====================== 3 ======================");
                     console.log(Article);
                 })
                 .catch((err) => {
-                    console.log("====================== 4 ======================");
                     return res.json(err)
                 }); 
         });
