@@ -1,3 +1,48 @@
-<div>
-    
+<nav class="navbar navbar-inverse bobby">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand">Web Scrapper!</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="/scrappedPage">Scrapped Articles</a></li>
+    </ul>
+    <button class="btn btn-primary scrapeBtn" data-toggle="modal" data-target="#myModal">SCRAPE BUTTON!</button>
+  </div>
+</nav>
+
+<div class="container-fluid img-responsive" id="bodyBack">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+            <div class="back"></div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+
+<div class="container-fluid info">
+    <h3>By Clicking on the Scrape Button on the navbar, You'll be collecting the top 5 article from the Christian Science Monitor News Site</h3>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Article has been Scrapped!</h4>
+      </div>
+      <div class="modal-body">
+        <h4>5 New Articles have been scrapped!</h4>
+        <p>Please click on the "Scrapped Articles" tab to see the articles and write notes</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
 </div>

@@ -1,0 +1,38 @@
+body, html {
+    
+}
+.container-fluid {
+    background-color: #fec62e;
+}
+.btn {
+    height: 50px;
+}
+.back {
+    display: block;
+    background-color:yellow;
+    border: 1px solid black;
+    padding-top: 100px;
+    height: 250px;
+    width: 900px;
+    background-image: url("../image/pic1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 50px;
+    box-shadow: 5px 5px 10px black;
+
+}
+ #bodyBack {
+    height: 400px;
+    border-radius: 10%;
+    box-shadow: 5px 5px 20px black;
+ }
+
+ .navbar {
+    border-radius: 10%;
+    box-shadow: 5px 5px 10px black;
+ }
+ .info {
+    margin-top: 80px;
+    border-radius: 10%;
+    box-shadow: 5px 5px 10px black;
+ }

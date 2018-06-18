@@ -13,6 +13,14 @@ const ArticleSchema = new Schema({
     body: {
         type: String,
         required: true
+    },
+    url: {
+        type: String,
+        required: true
+    },
+    img: {
+        data: Buffer, 
+        contentType: String
     }
 });
 // This creates our model from the above schema, using mongoose's model method

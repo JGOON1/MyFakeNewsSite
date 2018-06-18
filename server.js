@@ -45,25 +45,48 @@ app.get('/', (req, res) => {
     res.render("landingPage");
 });
 
-app.get("/scrape", (req, res) => {
-    axios.get("https://weather.com/weather/tenday/l/19006:4:US").then((response) => {
-        const $ = cheerio.load(response.data);
-        $("tr.clickable").each((i, element) => {
-            let result = {};
-            
-            result.title = $(element).find("span.day-detail").text();
-            result.body = $(element).find("td.description").attr("title");
+app.get('/scrappedPage', (req, res) => {
+    res.render("scrappedPage");
+});
 
+app.get("/all", (req, res) => {
+    db.article.find({}, (error, found) => {
+        if(error) throw error;
+
+        else res.json(found);
+    })
+})
+
+app.get("/scrape", (req, res) => {
+    axios.get("https://www.csmonitor.com/").then((response) => {
+        const $ = cheerio.load(response.data);
+        let result = {};
+console.log(" ======================= 1 =======================");
+        $("div.ezz-bottom>.ezp-ezflow_block>ul>li").each((i, element) => {
+            console.log(" ======================= 2 =======================");
+            
+            
+            result.title = $(element).find("div.story_list_item").children("div.story_detail").find("h2.headline").text();
+
+            result.body = $(element).find("div.story_detail").children("div.story_summary").children("p").text();
+
+            result.url = $(element).find("div.story_detail").children("a").attr("href");
+
+            result.img = $(element).find("div.story_list_item").children("div.story_thumbnail").children("a").children("figure").children("picture").children("source").attr("data-srcset");
+            
             console.log(result);
 
             db.article.create(result)
-                .then((Article) => {
-                    console.log(Article);
-                })
-                .catch((err) => {
-                    return res.json(err)
-                }); 
+            .then((Article) => {
+                console.log(" ======================= 3 =======================");
+                console.log(Article);
+            })
+            .catch((err) => {
+                console.log(" ======================= 4 =======================");
+                return res.json(err)
+            }); 
         });
+        console.log(" ======================= 5 =======================");
 
         res.send("Scrape Complete!");
     });
