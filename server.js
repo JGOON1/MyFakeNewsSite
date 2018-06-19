@@ -50,8 +50,19 @@ app.get('/scrappedPage', (req, res) => {
 });
 
 app.get("/all", (req, res) => {
-    db.article.find({}, (error, found) => {
-        if(error) throw error;
+    db.article.find({})
+        .then((dbarticle) => {
+            res.json(dbarticle);
+        })
+        .catch((err) => {
+            res.json(err);
+        });
+    });
+
+
+app.get("/saved", (req, res) => {
+    db.article.findOne({title: req.body}, (err, found) => {
+        if(err) throw err;
 
         else res.json(found);
     })
@@ -60,11 +71,11 @@ app.get("/all", (req, res) => {
 app.get("/scrape", (req, res) => {
     axios.get("https://www.csmonitor.com/").then((response) => {
         const $ = cheerio.load(response.data);
-        let result = {};
+        
 console.log(" ======================= 1 =======================");
         $("div.ezz-bottom>.ezp-ezflow_block>ul>li").each((i, element) => {
             console.log(" ======================= 2 =======================");
-            
+            let result = {};
             
             result.title = $(element).find("div.story_list_item").children("div.story_detail").find("h2.headline").text();
 
@@ -80,6 +91,7 @@ console.log(" ======================= 1 =======================");
             .then((Article) => {
                 console.log(" ======================= 3 =======================");
                 console.log(Article);
+                res.send(Article);
             })
             .catch((err) => {
                 console.log(" ======================= 4 =======================");
@@ -88,7 +100,7 @@ console.log(" ======================= 1 =======================");
         });
         console.log(" ======================= 5 =======================");
 
-        res.send("Scrape Complete!");
+        // res.send("Scrapped Complete!");
     });
 });
 
