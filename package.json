@@ -4,6 +4,7 @@
   "description": "scrapping a real news site and displaying it to my fake new's site",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
