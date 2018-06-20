@@ -49,6 +49,10 @@ app.get('/scrappedPage', (req, res) => {
     res.render("scrappedPage");
 });
 
+app.get('/savedArticles', (req, res) => {
+    res.render("savedArticle");
+});
+
 app.get("/all", (req, res) => {
     db.article.find({})
         .then((dbarticle) => {
@@ -60,9 +64,10 @@ app.get("/all", (req, res) => {
     });
 
 app.get("/savedArticles/:id", (req, res) => {
-    db.article.findOne({_id: req.params.id})
+    db.saved.findOne({_id: req.params.id})
         .populate("Note")
         .then((savedNotes) => {
+            console.log(savedNotes);
             res.json(savedNotes);
         })
         .catch((err) => {
