@@ -137,41 +137,41 @@ app.post("/saved", (req, res) => {
 
 });
 
-app.get("/scrape", (req, res) => {
-    axios.get("https://www.csmonitor.com/").then((response) => {
-        const $ = cheerio.load(response.data);
+// app.get("/scrape", (req, res) => {
+//     axios.get("https://www.csmonitor.com/").then((response) => {
+//         const $ = cheerio.load(response.data);
 
-        console.log(" ======================= 1 =======================");
-        $("div.ezz-bottom>.ezp-ezflow_block>ul>li").each((i, element) => {
-            console.log(" ======================= 2 =======================");
-            let result = {};
+//         console.log(" ======================= 1 =======================");
+//         $("div.ezz-bottom>.ezp-ezflow_block>ul>li").each((i, element) => {
+//             console.log(" ======================= 2 =======================");
+//             let result = {};
 
-            result.title = $(element).find("div.story_list_item").children("div.story_detail").find("h2.headline").text();
+//             result.title = $(element).find("div.story_list_item").children("div.story_detail").find("h2.headline").text();
 
-            result.body = $(element).find("div.story_detail").children("div.story_summary").children("p").text();
+//             result.body = $(element).find("div.story_detail").children("div.story_summary").children("p").text();
 
-            result.url = $(element).find("div.story_detail").children("a").attr("href");
+//             result.url = $(element).find("div.story_detail").children("a").attr("href");
 
-            result.img = $(element).find("div.story_list_item").children("div.story_thumbnail").children("a").children("figure").children("picture").children("source").attr("data-srcset");
+//             result.img = $(element).find("div.story_list_item").children("div.story_thumbnail").children("a").children("figure").children("picture").children("source").attr("data-srcset");
 
-            console.log(result);
+//             console.log(result);
 
-            db.article.create(result)
-                .then((Article) => {
-                    console.log(" ======================= 3 =======================");
-                    console.log(Article);
-                    res.send(Article);
-                })
-                .catch((err) => {
-                    console.log(" ======================= 4 =======================");
-                    return res.json(err)
-                });
-        });
-        console.log(" ======================= 5 =======================");
+//             db.article.create(result)
+//                 .then((Article) => {
+//                     console.log(" ======================= 3 =======================");
+//                     console.log(Article);
+//                     res.send(Article);
+//                 })
+//                 .catch((err) => {
+//                     console.log(" ======================= 4 =======================");
+//                     return res.json(err)
+//                 });
+//         });
+//         console.log(" ======================= 5 =======================");
 
-        res.send("Scrapped Complete!");
-    });
-});
+//         res.send("Scrapped Complete!");
+//    });
+// });
 
 
 
