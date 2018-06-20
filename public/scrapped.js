@@ -7,14 +7,35 @@ $(document).ready(() => {
         console.log(data);
         for (var i = 0; i < data.length; i++) {
             $("#newInfo2").append(`
-                <p class="col-md-7 newInfo1">${data[i].title}</p>`);
+                <div class="container jumbotron">
+                <h3 class="col-md-7 newInfo1">${data[i].title}</h3>
+                <p>${data[i].body}</p>
+                <button id="savedBtn">Save Me!</button>
+                </div>`);
         };
 
     });
 
-    $(document).on("click", "p", function() {
+    $(document).on("click", "button", function() {
 
-        console.log($(this));
+        const savedTitle = $(this).parent().find(".newInfo1").text();
+        const savedBody = $(this).parent().find("p").text();
+
+        let result = {
+            title: savedTitle,
+            body: savedBody
+        };
+
+        $.ajax({
+            method: "POST",
+            url: "/saved",
+            data: result
+        })
+            .done((msg) => {
+                console.log(msg);
+            });
+        
+        console.log(result);
         // console.log($(".newInfo1").attr("value"));
 
         // console.log($("div.newInfo1").attr("id").text());
@@ -23,5 +44,6 @@ $(document).ready(() => {
         // $.post("/saved", savedTitle, (data, status) => {
         //     console.log(data);
         // })
-    })
+    
+    });
 });

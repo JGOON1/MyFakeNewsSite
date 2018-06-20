@@ -59,14 +59,48 @@ app.get("/all", (req, res) => {
         });
     });
 
+app.get("/savedArticles/:id", (req, res) => {
+    db.article.findOne({_id: req.params.id})
+        .populate("Note")
+        .then((savedNotes) => {
+            res.json(savedNotes);
+        })
+        .catch((err) => {
+            res.json(err);
+        });
+});
 
 app.get("/saved", (req, res) => {
-    db.article.findOne({title: req.body}, (err, found) => {
-        if(err) throw err;
-
-        else res.json(found);
-    })
+    db.saved.find({})
+        .then((dbsaved) => {
+            res.json(dbsaved);
+        })
+        .catch((err) => {
+            res.json(err);
+        })
 })
+
+
+app.post("/saved", (req, res) => {
+
+    let result = {
+        title: req.body.title,
+        body: req.body.body
+    };
+
+    db.saved.create(result)
+    .then((saved1) => {
+        console.log(" ======================= 3 =======================");
+        console.log(saved1);
+        res.send(saved1);
+    })
+    .catch((err) => {
+        return res.json(err);
+    });
+    console.log(' ======================== 1 ===============');
+    console.log("bobdole");
+
+});
 
 app.get("/scrape", (req, res) => {
     axios.get("https://www.csmonitor.com/").then((response) => {
@@ -100,7 +134,7 @@ console.log(" ======================= 1 =======================");
         });
         console.log(" ======================= 5 =======================");
 
-        // res.send("Scrapped Complete!");
+        res.send("Scrapped Complete!");
     });
 });
 
