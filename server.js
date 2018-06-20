@@ -95,6 +95,15 @@ app.post("/savedArticles/:id", (req, res) => {
             });
         });
 });
+app.delete("/saved", (req, res) => {
+    console.log(" ==================== 1 ==============");
+    console.log(req.body);
+    console.log(" ==================== 1 ==============");
+    db.saved.findByIdAndRemove(req.body, (err, todo) => {
+        console.log(" ==================== 2 ==============");
+        return res.status(200).send(todo);
+    })
+})
 
 app.get("/saved", (req, res) => {
     db.saved.find({})

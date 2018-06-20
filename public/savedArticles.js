@@ -9,7 +9,7 @@ $(document).ready(() => {
                 <h3 class="col-md-7 newInfo1" data-id="${data[i]._id}">${data[i].title}</h3>
                 <p data-id="${data[i]._id}">${data[i].body}</p>
                 <button data-toggle="modal" data-target="#myModal" data-id="${data[i]._id}" class="writeNote">Write a note</button>
-                <button data-id="${data[i]._id}" class="deleteNote">Delete the note</button>
+                <button data-id="${data[i]._id}" class="deleteNote">Delete the article from saved</button>
                 </div>`);
         };
     });
@@ -65,6 +65,17 @@ $(document).ready(() => {
     });
 
     //when user clicks to delete a note
-
+    $(document).on("click", ".deleteNote", function() {
+        // console.log($(this).attr("data-id"));
+        $.ajax({
+            type: "DELETE",
+            url: "/saved",
+            data: {_id: $(this).attr("data-id")}
+        })
+        .then(function(data) {
+            console.log(data);
+            location.reload();
+        });
+    });
 
 });
